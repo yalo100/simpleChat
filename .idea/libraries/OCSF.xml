@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="OCSF">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../OCSF" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../OCSF/src" />
+    </SOURCES>
+  </library>
+</component>
