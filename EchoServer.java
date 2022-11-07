@@ -78,6 +78,7 @@ public class EchoServer extends AbstractServer
    * @param client the connection connected to the client.
    */
   protected void clientConnected(ConnectionToClient client) {
+	  System.out.println("A new client connected to the server");
 	  
   }
 
@@ -89,7 +90,9 @@ public class EchoServer extends AbstractServer
    * @param client the connection with the client.
    */
   synchronized protected void clientDisconnected(
-    ConnectionToClient client) {}
+    ConnectionToClient client) {
+	  System.out.println("A new client disconnected to the server");
+  }
 
 
   //Class methods ***************************************************
