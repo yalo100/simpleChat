@@ -68,7 +68,11 @@ public class ChatClient extends AbstractClient
   {
     try
     {
-      sendToServer(message);
+    	if(message.startsWith("#")) {
+    		handleCommand(message);
+    	}
+    	else {
+      sendToServer(message);}
     }
     catch(IOException e)
     {
@@ -77,6 +81,70 @@ public class ChatClient extends AbstractClient
       quit();
     }
   }
+  private void handleCommand(String cmd) {
+	  if(cmd.equals("#quit")) {
+		  clientUI.display("The client will now quit");
+		  quit();}
+	  else if(cmd.equals("#logoff")) {
+		  try {
+			  if(this.isConnected()) {
+			this.closeConnection();}
+			  else {
+				  System.out.println("The client is already disconnected");
+			  }
+		} catch (IOException e) {
+			System.out.println("Closing the connection failed");
+		}
+		  
+	  }
+	  else if(cmd.equals("#sethost <host>")) {
+		  try {
+			  if(!isConnected()) {
+				  setHost(cmd.substring(cmd.indexOf("<"),cmd.indexOf(">")));
+			  }
+			  else {
+				  closeConnection();
+				  setHost(cmd.substring(cmd.indexOf("<"),cmd.indexOf(">")));
+			  }
+			  
+		  }
+		  catch(IOException e){
+			  System.out.println("Unable to sethost");
+			  
+		  }
+	  }
+	  else if(cmd.equals("#setport <port>")) {
+		  try {
+			  if(!isConnected()) {
+				  setPort(Integer.parseInt(cmd.substring(cmd.indexOf("<"),cmd.indexOf(">"))));
+			  }
+			  else {
+				  closeConnection();
+				  setHost(cmd.substring(cmd.indexOf("<"),cmd.indexOf(">")));
+			  }
+			  
+		  }
+		  catch(IOException e){
+			  System.out.println("Unable to sethost");
+	  }
+	  else if(cmd.equals("#login")) {
+		  try {
+			  if(!this.isConnected()) {
+			this.openConnection();}
+			  else {
+				  System.out.println("The client is already connected");
+			  }
+		} catch (IOException e) {
+			System.out.println("Initiating the connection failed");
+		}}
+	  else if(cmd.equals("#gethost")) {
+		  getHost();
+	  }
+	  else if(cmd.equals("#getport")) {
+		  getPort();
+	  }
+    }
+  
   
   /**
    * This method terminates the client.
